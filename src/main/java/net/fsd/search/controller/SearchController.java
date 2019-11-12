@@ -3,16 +3,18 @@ package net.fsd.search.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import net.fsd.comm.BaseController;
+import net.fsd.model.UserDtls;
 import net.fsd.search.service.ISearchTrainingService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/search")
 public class SearchController  extends BaseController {
 	@Autowired
@@ -20,8 +22,8 @@ public class SearchController  extends BaseController {
 
 	// http://localhost:8080/fsdmvc/app/training/skill/1
 	@RequestMapping(value = "/skill", method = RequestMethod.POST)
-	public List findTrainingBySkillId(@RequestParam("id") long skillId) {
-		List list = searchTrainingService.findTrainingBySkillId(skillId);
+	public List<UserDtls> findTrainingBySkillId(@RequestParam("id") long skillId) {
+		List<UserDtls> list = searchTrainingService.findTrainingBySkillId(skillId);
 		return list;
 	}
 

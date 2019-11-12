@@ -1,4 +1,4 @@
-package net.fsd.payment.main;
+package net.fsd.security;
 
 import java.util.Arrays;
 
@@ -12,24 +12,27 @@ import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.fsd.comm.WebAppConfigurer;
+import net.fsd.main.AppConfig;
+import net.fsd.user.main.AppConfigUser;
 
 @RestController
 @SpringBootApplication
-@Import({AppConfigPayment.class })
+@Import({ AppConfig.class,WebAppConfigurer.class })
 public class FsdApplication {
 
 	@RequestMapping("/")
 	String home() {
 		return "no application name jsut Hello World!";
 	}
-	
+
 	@RequestMapping("/fakelogin")
 	String login() {
 		return "login successfully!";
 	}
 
 	public static void main(String[] args) {
-		AnnotationConfigApplicationContext ctx= new AnnotationConfigApplicationContext();		
+		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 		SpringApplication.run(FsdApplication.class, args);
 	}
 	

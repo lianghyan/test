@@ -22,7 +22,7 @@ public class LogInterceptor {
 		Method method = signature.getMethod();
 		String methodName = method.getName();
 
-		log.info("Before " + className + "." + methodName + "() is invoked! ");
+		log.debug("Before " + className + "." + methodName + "() is invoked! ");
 		Object rval = joinPoint.proceed();
 		log.debug("After " + className + "." + methodName + "() is invoked! ");
 

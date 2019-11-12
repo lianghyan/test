@@ -1,9 +1,11 @@
 package net.fsd.security.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,9 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import net.fsd.comm.dao.UserRepository;
 import net.fsd.entity.FSDUser;
 import net.fsd.security.util.BearTokenUtil;
+import net.fsd.user.dao.UserRepository;
 
 @Service
 public class FSDUserDetailsService implements UserDetailsService {
@@ -46,13 +48,26 @@ public class FSDUserDetailsService implements UserDetailsService {
 		return u;
 	}
 
-	public String login(String username, String password) {
+	public String[] login(String username, String password) {
 //		UsernamePasswordAuthenticationToken upToken = new UsernamePasswordAuthenticationToken(username, password);
 //		final Authentication authentication = authenticationManager.authenticate(upToken);
 //		SecurityContextHolder.getContext().setAuthentication(authentication);
-		final UserDetails userDetails = loadUserByUsername(username);
-		final String token = jwtTokenUtil.generateToken(userDetails);
-		return token;
+		
+		FSDUser fsduser = userRepository.getUserByName(username);
+		if (null == fsduser) {
+			throw new UsernameNotFoundException(username);
+		}
+		String un = fsduser.getUserName();
+		String pwd = fsduser.getPassword();
+		String role = fsduser.getRole();
+
+		List<SimpleGrantedAuthority> auList = new ArrayList<>();
+		SimpleGrantedAuthority sga = new SimpleGrantedAuthority(role);
+		auList.add(sga);
+		User u = new User(un, pwd, auList); 
+		
+		final String token = jwtTokenUtil.generateToken(u);
+		return new String[] {token,role, fsduser.getId()+""};
 	}
 	// 注册
 

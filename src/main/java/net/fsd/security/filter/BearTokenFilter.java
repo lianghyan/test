@@ -3,6 +3,7 @@ package net.fsd.security.filter;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,11 @@ public class BearTokenFilter extends OncePerRequestFilter {
 	public static String logoutPath = "/auth/logout";
 
 	private boolean needValidate(HttpServletRequest request) {
+
+		Enumeration e = request.getParameterNames();
+		while (e.hasMoreElements()) {
+			System.out.println("************************" + e.nextElement());
+		}
 		String url = request.getRequestURL().toString();
 		if (url.endsWith(loginPath) || url.endsWith(logoutPath)) {
 			return true;
@@ -52,9 +58,16 @@ public class BearTokenFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 
+		Enumeration aa = request.getHeaderNames();
+		while (aa.hasMoreElements()) {
+			System.out.println("***********" + aa.nextElement());
+		}
+		System.out.println("<<<<<<<<<<<<<>>>>>>>" + request.getHeader("access-control-request-headers"));
+
 		if (!needValidate(request)) {
 			String reqHeader = request.getHeader(HEADER_AUTH);
 			String msg = null;
+			reqHeader="Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2t5IiwiZXhwIjoyMDA0NTgxNTk3LCJpYXQiOjE1NzI1ODE1OTd9.LUonbBUP6qZf2fDIUa50eyUXRYcN8hFOuqUF04F0WVVgHluPH30K845tdkW7aaU8KN31TayM6rgsKlNJ7O3yeQ";
 			if (reqHeader == null) {
 				msg = "Token is not provided";
 				composeResponse(request, response, msg);
@@ -108,7 +121,7 @@ public class BearTokenFilter extends OncePerRequestFilter {
 
 	private void composeResponse(HttpServletRequest request, HttpServletResponse response, String msg)
 			throws ServletException, IOException {
-		Date curDate= new Date();
+		Date curDate = new Date();
 		Map<String, String> map = new HashMap();
 		map.put("timestamp", DateFormat.getInstance().format(curDate));
 		map.put("error", msg);

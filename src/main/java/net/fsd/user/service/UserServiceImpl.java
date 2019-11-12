@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.fsd.comm.dao.UserRepository;
 import net.fsd.entity.FSDUser;
+import net.fsd.user.dao.UserRepository;
 
 @Service(value = "userService")
 public class UserServiceImpl implements IUserService {

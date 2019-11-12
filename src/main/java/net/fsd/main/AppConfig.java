@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableAspectJAutoProxy(proxyTargetClass=true)
-@ComponentScan({"net.fsd.model", "net.fsd.security", "net.fsd.comm.log",
+@ComponentScan({"net.fsd.model", "net.fsd.security", "net.fsd.scheduler", "net.fsd.comm.log",
 	"net.fsd.*.service", "net.fsd.*.controller"})
 
 //@ComponentScan("net.fsd.model, net.fsd.*.service, net.fsd.*.controller, net.fsd.security, net.fsd.comm.log")

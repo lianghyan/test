@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,6 +15,7 @@ import net.fsd.entity.Skill;
 import net.fsd.skill.service.ISkillService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/skill")
 public class SkillController extends BaseController {
 	@Autowired

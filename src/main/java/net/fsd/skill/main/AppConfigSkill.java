@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan({"net.fsd.model","net.fsd.security", "net.fsd.comm.log",
 	"net.fsd.skill.controller","net.fsd.skill.service"})
 @EntityScan("net.fsd.entity")
-@EnableJpaRepositories({"net.fsd.skill.dao","net.fsd.comm.dao"})
+@EnableJpaRepositories("net.fsd.skill.dao")
 //@ComponentScan("net.fsd.model, net.fsd.skill.*, net.fsd.security")
 //@EnableJpaRepositories(basePackages = {"com.xx","com.yy"})
 //@EntityScan(basePackages = {"com.xx","com.yy"})

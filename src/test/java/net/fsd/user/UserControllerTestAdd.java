@@ -18,10 +18,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.fsd.main.AppConfig;
 import net.fsd.main.BaseTestController;
+import net.fsd.user.main.AppConfigUser;
 
-@Import({ AppConfig.class })
+@Import({ AppConfigUser.class })
 public class UserControllerTestAdd extends BaseTestController {
 	static long userid = 0;
 

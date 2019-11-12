@@ -1,4 +1,4 @@
-package net.fsd.comm.dao;
+package net.fsd.user.dao;
 
 import java.util.List;
 

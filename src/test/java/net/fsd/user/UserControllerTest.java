@@ -23,18 +23,18 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.fsd.main.AppConfig;
 import net.fsd.main.BaseTestController;
+import net.fsd.user.main.AppConfigUser;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@Import({ AppConfig.class })
+@Import({ AppConfigUser.class })
 public class UserControllerTest extends BaseTestController {
 	static int userId=0;
 
 	// @Test
 	public void login() throws Exception {
 		ResultActions matcher = this.mockMvc
-				.perform(post("/login").param("username", "dragonfly").param("password", "111111")
+				.perform(post("/auth/login").param("username", "usky").param("password", "111111")
 						.accept(MediaType.APPLICATION_JSON_UTF8))
 				.andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 		matcher.andDo(MockMvcResultHandlers.print());

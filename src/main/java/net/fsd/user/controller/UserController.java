@@ -1,12 +1,13 @@
 package net.fsd.user.controller;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,13 +17,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import net.fsd.comm.BaseController;
 import net.fsd.entity.FSDUser;
+import net.fsd.model.UserInfo;
 import net.fsd.user.service.IUserService;
 
 @RestController
-
+@CrossOrigin
 @RequestMapping("/user")
-
-
 public class UserController extends BaseController {
 	@Autowired
 	IUserService userService;
@@ -77,10 +77,50 @@ public class UserController extends BaseController {
 		return list;
 	}
 
+	@RequestMapping(value = "/listusers", method = RequestMethod.POST)
+	// @ResponseBody
+	public List<UserInfo> listUsers() {
+		List<FSDUser> list = userService.listUser();
+		List<UserInfo> tmp = new ArrayList<UserInfo>();
+		for (FSDUser u : list) {
+			UserInfo info = new UserInfo();
+			info.setUserId(u.getId());
+			info.setUserName(u.getUserName());
+			info.setUserRole(u.getRole());
+			if (u.getActive()) {
+				info.setUserStatus("normal");
+			} else {
+				info.setUserStatus("block");
+			}
+			tmp.add(info);
+		}
+		return tmp;
+	}
+	
 	@RequestMapping(value = "/listmentor", method = RequestMethod.POST)
 	// @ResponseBody
 	public List<FSDUser> listMentor() {
 		return userService.listMentor();
+	}
+
+	@RequestMapping(value = "/listmentors", method = RequestMethod.POST)
+	// @ResponseBody
+	public List<UserInfo> listMentors() {
+		List<FSDUser> list = userService.listMentor();
+		List<UserInfo> tmp = new ArrayList<UserInfo>();
+		for (FSDUser u : list) {
+			UserInfo info = new UserInfo();
+			info.setUserId(u.getId());
+			info.setUserName(u.getUserName());
+			info.setUserRole(u.getRole());
+			if (u.getActive()) {
+				info.setUserStatus("normal");
+			} else {
+				info.setUserStatus("blocked");
+			}
+			tmp.add(info);
+		}
+		return tmp;
 	}
 
 	@RequestMapping(value = "/userinfo", method = RequestMethod.POST)

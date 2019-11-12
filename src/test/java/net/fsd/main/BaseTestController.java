@@ -1,14 +1,9 @@
 package net.fsd.main;
 
-import java.lang.annotation.Inherited;
-
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -16,9 +11,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = FsdApplicationMain.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = FsdApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BaseTestController {
-	protected String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2t5IiwiZXhwIjoyMDAxNTUyMTE4LCJpYXQiOjE1Njk1NTIxMTh9.IIbFaDpKcgZ-0ixxxHXKS0eOI5Yyh5XaD3SJuIvVLR1wgcn4e2eCp4q3AHf2HZWETNhbeT79XuscHHxstC1YhQ";
+	protected String token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJkcmFnb25mbHkiLCJleHAiOjIwMDE0Njg2NzQsImlhdCI6MTU2OTQ2ODY3NH0.0SrO7Eh2taoGQyfPIxAWxUHIppE7hT4nq8nEiDunsK_qufs82iS3VC1-9zPqDSQ60-LhFl-bnZknd8LOpqtTWQ";
 	protected MockMvc mockMvc;
 
 	@Autowired
